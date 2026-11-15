@@ -6,6 +6,9 @@ var conStr = builder.Configuration.GetConnectionString("LoanTracker");
 
 // Add services to the container.
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddControllers();
 builder.Services.AddDbContext<LoanTrackerContext>(options =>
     options.UseNpgsql(conStr));
@@ -13,6 +16,11 @@ builder.Services.AddDbContext<LoanTrackerContext>(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 

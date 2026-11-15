@@ -1,4 +1,5 @@
 using LoanTracker.Data;
+using LoanTracker.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,8 +11,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<LoanTrackerContext>(options =>
-    options.UseNpgsql(conStr));
+builder.Services.AddDbContext<LoanTrackerContext>(options => options.UseNpgsql(conStr));
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 var app = builder.Build();
 
